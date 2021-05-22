@@ -4,10 +4,12 @@ public class Rate {
 
     private int priceHour;
     private int priceDay;
+    private int surplus;
 
-    public Rate(int priceHour, int priceDay) {
-        this.priceHour = priceHour;
-        this.priceDay = priceDay;
+    public Rate(int priceHour, int priceDay, int surplus) {
+        setPriceHour(priceHour);
+        setPriceDay(priceDay);
+        setSurplus(surplus);
     }
 
     public int getPriceHour() {
@@ -24,5 +26,13 @@ public class Rate {
 
     public void setPriceDay(int priceDay) {
         this.priceDay = priceDay;
+    }
+
+    public int getSurplus() {
+        return surplus;
+    }
+
+    public void setSurplus(int surplus) {
+        this.surplus = surplus;
     }
 }

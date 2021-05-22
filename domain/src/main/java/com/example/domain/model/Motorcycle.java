@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 public class Motorcycle extends Vehicle {
 
     private int cylinderCapacity;
-    private final Rate rate = new Rate(500, 4000);
-    private final int MAX_QUANTITY = 10;
+    private final Rate RATE = new Rate(500, 4000, 2000);
 
     public Motorcycle(String licensePlate, LocalDateTime entryDate, int cylinderCapacity) {
         super(licensePlate, entryDate);
@@ -18,18 +17,11 @@ public class Motorcycle extends Vehicle {
     }
 
     public void setCylinderCapacity(int cylinderCapacity) {
-        if (cylinderCapacity <= 0) {
-            //Exception
-        } else {
-            this.cylinderCapacity = cylinderCapacity;
-        }
+        this.cylinderCapacity = cylinderCapacity;
     }
 
-    public Rate getRate() {
-        return rate;
-    }
-
-    public int getMAX_QUANTITY() {
-        return MAX_QUANTITY;
+    @Override
+    public Rate getRATE() {
+        return RATE;
     }
 }

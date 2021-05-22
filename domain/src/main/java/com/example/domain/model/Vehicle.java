@@ -5,6 +5,7 @@ public class Vehicle {
 
     private String licensePlate;
     private LocalDateTime entryDate;
+    private final Rate RATE = new Rate(0, 0, 0);
 
     public Vehicle(String licensePlate, LocalDateTime entryDate) {
         setLicensePlate(licensePlate);
@@ -16,11 +17,7 @@ public class Vehicle {
     }
 
     public void setLicensePlate(String licensePlate) {
-        if (licensePlate == null || licensePlate.isEmpty()){
-            //Exception
-        } else {
-            this.licensePlate = licensePlate;
-        }
+        this.licensePlate = licensePlate;
     }
 
     public LocalDateTime getEntryDate() {
@@ -28,10 +25,10 @@ public class Vehicle {
     }
 
     public void setEntryDate(LocalDateTime entryDate) {
-        if (entryDate == null){
-            //Exception
-        } else {
-            this.entryDate = entryDate;
-        }
+        this.entryDate = entryDate;
+    }
+
+    public Rate getRATE() {
+        return RATE;
     }
 }
