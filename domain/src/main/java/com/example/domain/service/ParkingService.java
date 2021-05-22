@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.domain.exception.ParkingLimitException;
+import com.example.domain.exception.RestrictedAccessByDayException;
 import com.example.domain.model.Car;
 import com.example.domain.model.Motorcycle;
 import com.example.domain.model.Rate;
@@ -39,9 +41,9 @@ public class ParkingService {
         int numberOfCars = carRepository.getNumberOfCars();
         int currentDay = LocalDate.now().getDayOfWeek().getValue();
         if (numberOfCars == MAX_NUMBER_OF_CARS) {
-            //Exception
+            throw new ParkingLimitException();
         } else if (validateLicensePlate(car.getLicensePlate(), currentDay)) {
-            //Exception
+            throw new RestrictedAccessByDayException();
         } else {
             carRepository.saveCar(car);
         }
@@ -51,9 +53,9 @@ public class ParkingService {
         int numberOfMotorcycles = motorcycleRepository.getNumberOfMotorcycles();
         int currentDay = LocalDate.now().getDayOfWeek().getValue();
         if (numberOfMotorcycles == MAX_NUMBER_OF_MOTORCYCLES) {
-            //Exception
+            throw new ParkingLimitException();
         } else if (validateLicensePlate(motorcycle.getLicensePlate(), currentDay)) {
-            //Exception
+            throw new RestrictedAccessByDayException();
         } else {
             motorcycleRepository.saveMotorcycle(motorcycle);
         }
@@ -70,6 +72,8 @@ public class ParkingService {
     public void deleteMotorcycle(Motorcycle motorcycle) {
         motorcycleRepository.deleteMotorcycle(motorcycle);
     }
+
+    //Get vehicles
 
     public int carParkingCost(Car car) {
         return calculateParkingCost(car);
