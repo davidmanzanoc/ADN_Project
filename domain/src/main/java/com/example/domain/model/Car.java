@@ -6,8 +6,8 @@ public class Car extends Vehicle {
 
     private final Rate RATE = new Rate(1000, 8000, 0);
 
-    public Car(String licensePlate, LocalDateTime admissionDate) {
-        super(licensePlate, admissionDate);
+    public Car(String licensePlate, LocalDateTime entryDate) {
+        super(licensePlate, entryDate);
     }
 
     @Override

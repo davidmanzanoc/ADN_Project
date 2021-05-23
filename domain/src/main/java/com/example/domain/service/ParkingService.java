@@ -17,6 +17,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import javax.inject.Inject;
+
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ParkingService {
 
@@ -25,21 +27,21 @@ public class ParkingService {
     private final String FIRST_LETTER_LICENSE_PLATE = "A";
     private final int SUNDAY = 7;
     private final int MONDAY = 1;
-    private final int MAX_NUMBER_OF_CARS = 20;
-    private final int MAX_NUMBER_OF_MOTORCYCLES = 10;
+    public static final int MAX_NUMBER_OF_CARS = 20;
+    public static int MAX_NUMBER_OF_MOTORCYCLES = 10;
     private final float MILLISECONDS_IN_AN_HOUR = 3600000;
     private final int HOURS_IN_A_DAY = 24;
     private final int HOUR_LIMIT = 9;
     private final int CYLINDER_CAPACITY_LIMIT = 500;
 
+    @Inject
     public ParkingService(CarRepository carRepository, MotorcycleRepository motorcycleRepository) {
         this.carRepository = carRepository;
         this.motorcycleRepository = motorcycleRepository;
     }
 
-    public void saveCar(Car car) {
+    public void saveCar(Car car, int currentDay) {
         int numberOfCars = carRepository.getNumberOfCars();
-        int currentDay = LocalDate.now().getDayOfWeek().getValue();
         if (numberOfCars == MAX_NUMBER_OF_CARS) {
             throw new ParkingLimitException();
         } else if (validateLicensePlate(car.getLicensePlate(), currentDay)) {
@@ -49,9 +51,8 @@ public class ParkingService {
         }
     }
 
-    public void saveMotorcycle(Motorcycle motorcycle) {
+    public void saveMotorcycle(Motorcycle motorcycle, int currentDay) {
         int numberOfMotorcycles = motorcycleRepository.getNumberOfMotorcycles();
-        int currentDay = LocalDate.now().getDayOfWeek().getValue();
         if (numberOfMotorcycles == MAX_NUMBER_OF_MOTORCYCLES) {
             throw new ParkingLimitException();
         } else if (validateLicensePlate(motorcycle.getLicensePlate(), currentDay)) {
@@ -75,24 +76,24 @@ public class ParkingService {
 
     //Get vehicles
 
-    public int carParkingCost(Car car) {
-        return calculateParkingCost(car);
+    public int carParkingCost(Car car, LocalDateTime exitDate) {
+        return calculateParkingCost(car, exitDate);
     }
 
-    public int motorcycleParkingCost(Motorcycle motorcycle) {
-        int parkingCost = calculateParkingCost(motorcycle);
+    public int motorcycleParkingCost(Motorcycle motorcycle, LocalDateTime exitDate) {
+        int parkingCost = calculateParkingCost(motorcycle, exitDate);
         if (motorcycle.getCylinderCapacity() > CYLINDER_CAPACITY_LIMIT) {
             parkingCost += motorcycle.getRATE().getSurplus();
         }
         return parkingCost;
     }
 
-    private int calculateParkingCost(Vehicle vehicle) {
+    public int calculateParkingCost(Vehicle vehicle, LocalDateTime exitDate) {
         Rate vehicleRate = vehicle.getRATE();
         int priceHour = vehicleRate.getPriceHour();
         int priceDay = vehicleRate.getPriceDay();
         int parkingCost;
-        int parkingTime = getParkingTime(vehicle.getEntryDate());
+        int parkingTime = getParkingTime(vehicle.getEntryDate(), exitDate);
         if (parkingTime < HOUR_LIMIT) {
             parkingCost = parkingTime * priceHour;
         } else {
@@ -108,8 +109,7 @@ public class ParkingService {
         return parkingCost;
     }
 
-    private int getParkingTime(LocalDateTime entryDate) {
-        LocalDateTime exitDate = LocalDateTime.now();
+    public int getParkingTime(LocalDateTime entryDate, LocalDateTime exitDate) {
         long timeElapsed = entryDate.until(exitDate, ChronoUnit.MILLIS);
         return (int) Math.ceil(timeElapsed / MILLISECONDS_IN_AN_HOUR);
     }
