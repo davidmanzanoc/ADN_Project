@@ -1,9 +1,5 @@
 package com.example.domain.service;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import com.example.domain.exception.ParkingLimitException;
 import com.example.domain.exception.RestrictedAccessByDayException;
 import com.example.domain.model.Car;
@@ -18,7 +14,6 @@ import java.time.temporal.ChronoUnit;
 
 import javax.inject.Inject;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class ParkingService {
 
     private CarRepository carRepository;
