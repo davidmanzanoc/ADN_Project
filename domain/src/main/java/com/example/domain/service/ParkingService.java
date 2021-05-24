@@ -1,5 +1,7 @@
 package com.example.domain.service;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.domain.exception.ParkingLimitException;
 import com.example.domain.exception.RestrictedAccessByDayException;
 import com.example.domain.model.Car;
@@ -11,6 +13,8 @@ import com.example.domain.repository.MotorcycleRepository;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -68,7 +72,14 @@ public class ParkingService {
         motorcycleRepository.deleteMotorcycle(motorcycle);
     }
 
-    //Get vehicles
+    public MutableLiveData<List<Vehicle>> getVehicles() {
+        MutableLiveData<List<Vehicle>> listMutableLiveData = new MutableLiveData<>();
+        List<Vehicle> vehicleList = new ArrayList<>();
+        vehicleList.addAll(carRepository.getCars());
+        vehicleList.addAll(motorcycleRepository.getMotorcycles());
+        listMutableLiveData.setValue(vehicleList);
+        return listMutableLiveData;
+    }
 
     public int carParkingCost(Car car, LocalDateTime exitDate) {
         return calculateParkingCost(car, exitDate);

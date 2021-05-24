@@ -29,20 +29,14 @@ public class ParkingServiceUnitTest {
     private MotorcycleRepository motorcycleRepository;
 
     private ParkingService parkingService;
+    private final String restrictedAccessByDay = "The vehicle's license plate is restricted for today's entry.";
+    private final String parkingLimitException = "The parking lot has reached its capacity limit.";
 
     @Before
     public void inicializarVariables() {
         carRepository = Mockito.mock(CarRepository.class);
         motorcycleRepository = Mockito.mock(MotorcycleRepository.class);
         parkingService = new ParkingService(carRepository, motorcycleRepository);
-    }
-
-    private String parkingLimitException_mock() {
-        return "The parking lot has reached its capacity limit.";
-    }
-
-    private String restrictedAccessByDay_mock() {
-        return "The vehicle's license plate is restricted for today's entry.";
     }
 
     @Test
@@ -178,7 +172,7 @@ public class ParkingServiceUnitTest {
             parkingService.saveCar(car, sunday);
         } catch (ParkingLimitException e) {
             //Assert
-            assertEquals(parkingLimitException_mock(), e.getMessage());
+            assertEquals(parkingLimitException, e.getMessage());
         }
     }
 
@@ -195,7 +189,7 @@ public class ParkingServiceUnitTest {
             parkingService.saveCar(car, sunday);
         } catch (RestrictedAccessByDayException e) {
             //Assert
-            assertEquals(restrictedAccessByDay_mock(), e.getMessage());
+            assertEquals(restrictedAccessByDay, e.getMessage());
         }
     }
 
@@ -212,7 +206,7 @@ public class ParkingServiceUnitTest {
             parkingService.saveMotorcycle(motorcycle, sunday);
         } catch (ParkingLimitException e) {
             //Assert
-            assertEquals(parkingLimitException_mock(), e.getMessage());
+            assertEquals(parkingLimitException, e.getMessage());
         }
     }
 
@@ -229,7 +223,7 @@ public class ParkingServiceUnitTest {
             parkingService.saveMotorcycle(motorcycle, sunday);
         } catch (RestrictedAccessByDayException e) {
             //Assert
-            assertEquals(restrictedAccessByDay_mock(), e.getMessage());
+            assertEquals(restrictedAccessByDay, e.getMessage());
         }
     }
 }
