@@ -13,7 +13,6 @@ import com.example.domain.model.Vehicle;
 import com.example.domain.repository.CarRepository;
 import com.example.domain.repository.MotorcycleRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
