@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">adn_temp</string>
+    <string name="app_name">adn</string>
+    <string name="welcome">Parking Service</string>
 </resources>
