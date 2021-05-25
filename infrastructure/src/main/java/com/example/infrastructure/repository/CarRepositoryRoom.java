@@ -6,11 +6,16 @@ import com.example.domain.model.Car;
 import com.example.domain.repository.CarRepository;
 import com.example.infrastructure.database.ParkingDatabase;
 import com.example.infrastructure.database.entity.CarEntity;
+import com.example.infrastructure.threads.car.GetCarsThread;
+import com.example.infrastructure.threads.car.GetNumberOfCarsThread;
 import com.example.infrastructure.translate.CarTranslate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
+import javax.security.auth.callback.Callback;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
@@ -37,11 +42,26 @@ public class CarRepositoryRoom implements CarRepository {
 
     @Override
     public int getNumberOfCars() {
-        return 0;
+        int numberOfCars = 0;
+        GetNumberOfCarsThread getNumberOfCarsThread = new GetNumberOfCarsThread(parkingDatabase);
+        try {
+            numberOfCars = getNumberOfCarsThread.execute().get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return numberOfCars;
     }
 
     @Override
     public List<Car> getCars() {
-        return null;
+        List<Car> carList = new ArrayList<>();
+        GetCarsThread getCarsThread = new GetCarsThread(parkingDatabase);
+        try {
+            List<CarEntity> carEntityList = getCarsThread.execute().get();
+            carList.addAll(CarTranslate.translateCarListFromDBToDomain(carEntityList));
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return carList;
     }
 }
