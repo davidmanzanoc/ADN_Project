@@ -4,11 +4,11 @@ import android.os.AsyncTask;
 
 import com.example.infrastructure.database.ParkingDatabase;
 
-public class GetNumberOfMotorcycles extends AsyncTask<Void, Void, Integer> {
+public class GetNumberOfMotorcyclesThread extends AsyncTask<Void, Void, Integer> {
 
     private ParkingDatabase parkingDatabase;
 
-    public GetNumberOfMotorcycles(ParkingDatabase parkingDatabase) {
+    public GetNumberOfMotorcyclesThread(ParkingDatabase parkingDatabase) {
         this.parkingDatabase = parkingDatabase;
     }
 

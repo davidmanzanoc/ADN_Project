@@ -7,11 +7,11 @@ import com.example.infrastructure.database.entity.MotorcycleEntity;
 
 import java.util.List;
 
-public class GetMotorcycles extends AsyncTask<Void, Void, List<MotorcycleEntity>> {
+public class GetMotorcyclesThread extends AsyncTask<Void, Void, List<MotorcycleEntity>> {
 
     private ParkingDatabase parkingDatabase;
 
-    public GetMotorcycles(ParkingDatabase parkingDatabase) {
+    public GetMotorcyclesThread(ParkingDatabase parkingDatabase) {
         this.parkingDatabase = parkingDatabase;
     }
 
