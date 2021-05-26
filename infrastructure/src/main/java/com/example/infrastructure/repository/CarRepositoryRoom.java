@@ -13,6 +13,8 @@ import com.example.infrastructure.translate.CarTranslate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -20,7 +22,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 
 public class CarRepositoryRoom implements CarRepository {
 
-    private ParkingDatabase parkingDatabase;
+    private final ParkingDatabase parkingDatabase;
 
     @Inject
     public CarRepositoryRoom(@ApplicationContext Context context) {
@@ -30,13 +32,14 @@ public class CarRepositoryRoom implements CarRepository {
     @Override
     public void saveCar(Car car) {
         CarEntity carEntity = CarTranslate.translateCarFromDomainToDB(car);
-        parkingDatabase.carDao().saveCar(carEntity);
+        ParkingDatabase.EXECUTOR_SERVICE.execute(() -> parkingDatabase.carDao().saveCar(carEntity));
     }
 
     @Override
     public void deleteCar(Car car) {
         CarEntity carEntity = CarTranslate.translateCarFromDomainToDB(car);
-        parkingDatabase.carDao().deleteCar(carEntity.licensePlate);
+        ParkingDatabase.EXECUTOR_SERVICE.execute(() ->
+                parkingDatabase.carDao().deleteCar(carEntity.licensePlate));
     }
 
     @Override

@@ -11,6 +11,9 @@ import com.example.infrastructure.database.dao.MotorcycleDao;
 import com.example.infrastructure.database.entity.CarEntity;
 import com.example.infrastructure.database.entity.MotorcycleEntity;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = {CarEntity.class, MotorcycleEntity.class}, version = 1)
 public abstract class ParkingDatabase extends RoomDatabase {
 
@@ -19,6 +22,7 @@ public abstract class ParkingDatabase extends RoomDatabase {
     public abstract MotorcycleDao motorcycleDao();
 
     private static ParkingDatabase databaseInstance = null;
+    public static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(4);
 
     public static ParkingDatabase getInstance(Context context) {
         if (databaseInstance == null) {

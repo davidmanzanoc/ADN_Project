@@ -19,9 +19,8 @@ public class MotorcycleTranslate {
     }
 
     public static Motorcycle translateMotorcycleFromDBToDomain(MotorcycleEntity motorcycleEntity) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime entryDateFormatted = LocalDateTime.parse(motorcycleEntity.entryDate, dateTimeFormatter);
-        return new Motorcycle(motorcycleEntity.licensePlate, entryDateFormatted, motorcycleEntity.cylinderCapacity);
+        LocalDateTime localDateTime = LocalDateTime.parse(motorcycleEntity.entryDate);
+        return new Motorcycle(motorcycleEntity.licensePlate, localDateTime, motorcycleEntity.cylinderCapacity);
     }
 
     public static List<Motorcycle> translateMotorcycleListFromDBToDomain(List<MotorcycleEntity> motorcycleList) {

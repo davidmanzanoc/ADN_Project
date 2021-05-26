@@ -18,9 +18,8 @@ public class CarTranslate {
     }
 
     public static Car translateCarFromDBToDomain(CarEntity carEntity) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime entryDateFormatted = LocalDateTime.parse(carEntity.entryDate, dateTimeFormatter);
-        return new Car(carEntity.licensePlate, entryDateFormatted);
+        LocalDateTime localDateTime = LocalDateTime.parse(carEntity.entryDate);
+        return new Car(carEntity.licensePlate, localDateTime);
     }
 
     public static List<Car> translateCarListFromDBToDomain(List<CarEntity> carList) {
