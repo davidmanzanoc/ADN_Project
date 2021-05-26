@@ -88,10 +88,18 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
         }
+        vehicleAdapter.notifyDataSetChanged();
     }
 
     private void clearFields() {
         etCylinderCapacity.setText("");
         etLicensePlate.setText("");
+    }
+
+    public void collectParkingService (Vehicle vehicle) {
+        parkingViewModel.collectParkingService(vehicle).observe(this, billParkingService ->{
+            Toast.makeText(this, "Total a pagar: " + billParkingService, Toast.LENGTH_LONG).show();
+            vehicleAdapter.notifyDataSetChanged();
+        });
     }
 }

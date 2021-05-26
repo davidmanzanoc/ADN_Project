@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.adn_temp.MainActivity;
 import com.example.adn_temp.R;
 import com.example.domain.model.Vehicle;
 
@@ -18,9 +19,11 @@ import java.util.List;
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHolder> {
 
     private List<Vehicle> vehicleList;
+    private Activity activity;
 
     public VehicleAdapter(List<Vehicle> vehicleList, Activity activity) {
         this.vehicleList = vehicleList;
+        this.activity = activity;
     }
 
     @NonNull
@@ -58,7 +61,8 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHold
             etLicensePlate.setText(vehicle.getLicensePlate());
             etEntryDate.setText(vehicle.getEntryDate().toString());
             btCollect.setOnClickListener(v -> {
-                //collectParkingService
+                MainActivity mainActivity = (MainActivity) activity;
+                mainActivity.collectParkingService(vehicle);
             });
         }
     }
