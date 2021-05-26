@@ -30,7 +30,9 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
     @Override
     public void saveMotorcycle(Motorcycle motorcycle) {
         MotorcycleEntity motorcycleEntity = MotorcycleTranslate.translateMotorcycleFromDomainToDB(motorcycle);
-        parkingDatabase.motorcycleDao().saveMotorcycle(motorcycleEntity);
+        ParkingDatabase.EXECUTOR_SERVICE.execute(() -> {
+            parkingDatabase.motorcycleDao().saveMotorcycle(motorcycleEntity);
+        });
     }
 
     @Override
