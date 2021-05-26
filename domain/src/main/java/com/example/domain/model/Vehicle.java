@@ -1,11 +1,12 @@
 package com.example.domain.model;
+
 import java.time.LocalDateTime;
 
 public class Vehicle {
 
     private String licensePlate;
     private LocalDateTime entryDate;
-    private final Rate RATE = new Rate(0, 0, 0);
+    private static final Rate RATE = new Rate(0, 0, 0);
 
     public Vehicle(String licensePlate, LocalDateTime entryDate) {
         setLicensePlate(licensePlate);

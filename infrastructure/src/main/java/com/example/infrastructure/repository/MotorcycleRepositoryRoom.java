@@ -37,7 +37,7 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
     @Override
     public void deleteMotorcycle(Motorcycle motorcycle) {
         MotorcycleEntity motorcycleEntity = MotorcycleTranslate.translateMotorcycleFromDomainToDB(motorcycle);
-        ParkingDatabase.EXECUTOR_SERVICE.execute(()->
+        ParkingDatabase.EXECUTOR_SERVICE.execute(() ->
                 parkingDatabase.motorcycleDao().deleteMotorcycle(motorcycleEntity.licensePlate));
     }
 

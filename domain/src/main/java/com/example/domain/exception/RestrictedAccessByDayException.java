@@ -1,6 +1,6 @@
 package com.example.domain.exception;
 
-public class RestrictedAccessByDayException extends RuntimeException{
+public class RestrictedAccessByDayException extends RuntimeException {
 
     private static final String RESTRICTED_ACCESS_BY_DAY = "The vehicle's license plate is restricted for today's entry.";
 

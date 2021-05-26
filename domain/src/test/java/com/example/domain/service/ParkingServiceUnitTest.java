@@ -29,8 +29,8 @@ public class ParkingServiceUnitTest {
     private MotorcycleRepository motorcycleRepository;
 
     private ParkingService parkingService;
-    private final String restrictedAccessByDay = "The vehicle's license plate is restricted for today's entry.";
-    private final String parkingLimitException = "The parking lot has reached its capacity limit.";
+    private static final String RESTRICTED_ACCESS_BY_DAY = "The vehicle's license plate is restricted for today's entry.";
+    private static final String PARKING_LIMIT_EXCEPTION = "The parking lot has reached its capacity limit.";
 
     @Before
     public void inicializarVariables() {
@@ -172,7 +172,7 @@ public class ParkingServiceUnitTest {
             parkingService.saveCar(car, sunday);
         } catch (ParkingLimitException e) {
             //Assert
-            assertEquals(parkingLimitException, e.getMessage());
+            assertEquals(PARKING_LIMIT_EXCEPTION, e.getMessage());
         }
     }
 
@@ -189,7 +189,7 @@ public class ParkingServiceUnitTest {
             parkingService.saveCar(car, sunday);
         } catch (RestrictedAccessByDayException e) {
             //Assert
-            assertEquals(restrictedAccessByDay, e.getMessage());
+            assertEquals(RESTRICTED_ACCESS_BY_DAY, e.getMessage());
         }
     }
 
@@ -206,7 +206,7 @@ public class ParkingServiceUnitTest {
             parkingService.saveMotorcycle(motorcycle, sunday);
         } catch (ParkingLimitException e) {
             //Assert
-            assertEquals(parkingLimitException, e.getMessage());
+            assertEquals(PARKING_LIMIT_EXCEPTION, e.getMessage());
         }
     }
 
@@ -223,7 +223,7 @@ public class ParkingServiceUnitTest {
             parkingService.saveMotorcycle(motorcycle, sunday);
         } catch (RestrictedAccessByDayException e) {
             //Assert
-            assertEquals(restrictedAccessByDay, e.getMessage());
+            assertEquals(RESTRICTED_ACCESS_BY_DAY, e.getMessage());
         }
     }
 }

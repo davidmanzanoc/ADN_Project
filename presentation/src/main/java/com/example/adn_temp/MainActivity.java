@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             parkingViewModel.saveVehicle(vehicle).observe(this, result ->
                     Toast.makeText(this, result, Toast.LENGTH_SHORT).show());
             clearFields();
-        } else if (rbMotorcycle.isChecked() && !licensePlate.equals("") && !cylinderCapacity.equals("")){
+        } else if (rbMotorcycle.isChecked() && !licensePlate.equals("") && !cylinderCapacity.equals("")) {
             int cylinderCapacityInt = Integer.parseInt(cylinderCapacity);
             Vehicle vehicle = new Motorcycle(licensePlate, LocalDateTime.now(), cylinderCapacityInt);
             parkingViewModel.saveVehicle(vehicle).observe(this, result ->
@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
         etLicensePlate.setText("");
     }
 
-    public void collectParkingService (Vehicle vehicle) {
-        parkingViewModel.collectParkingService(vehicle).observe(this, billParkingService ->{
+    public void collectParkingService(Vehicle vehicle) {
+        parkingViewModel.collectParkingService(vehicle).observe(this, billParkingService -> {
             Toast.makeText(this, "Total a pagar: " + billParkingService, Toast.LENGTH_LONG).show();
             vehicleAdapter.notifyDataSetChanged();
         });

@@ -25,7 +25,7 @@ public class ParkingViewModel extends ViewModel {
     public ParkingViewModel(ParkingService parkingService) {
         this.parkingService = parkingService;
         this.vehicleList = new MutableLiveData<>();
-        this.vehicleSaved  = new MutableLiveData<>();
+        this.vehicleSaved = new MutableLiveData<>();
         this.parkingBill = new MutableLiveData<>();
         vehicleList = parkingService.getVehicles();
     }
