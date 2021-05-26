@@ -22,15 +22,15 @@ public class ParkingService {
 
     private CarRepository carRepository;
     private MotorcycleRepository motorcycleRepository;
-    private final String FIRST_LETTER_LICENSE_PLATE = "A";
-    private final int SUNDAY = 7;
-    private final int MONDAY = 1;
+    private static final String FIRST_LETTER_LICENSE_PLATE = "A";
+    private static final int SUNDAY = 7;
+    private static final int MONDAY = 1;
     public static final int MAX_NUMBER_OF_CARS = 20;
     public static int MAX_NUMBER_OF_MOTORCYCLES = 10;
-    private final float MILLISECONDS_IN_AN_HOUR = 3600000;
-    private final int HOURS_IN_A_DAY = 24;
-    private final int HOUR_LIMIT = 9;
-    private final int CYLINDER_CAPACITY_LIMIT = 500;
+    private static final float MILLISECONDS_IN_AN_HOUR = 3600000;
+    private static final int HOURS_IN_A_DAY = 24;
+    private static final int HOUR_LIMIT = 9;
+    private static final int CYLINDER_CAPACITY_LIMIT = 500;
 
     @Inject
     public ParkingService(CarRepository carRepository, MotorcycleRepository motorcycleRepository) {

@@ -9,7 +9,7 @@ public class Motorcycle extends Vehicle {
 
     public Motorcycle(String licensePlate, LocalDateTime entryDate, int cylinderCapacity) {
         super(licensePlate, entryDate);
-        this.cylinderCapacity = cylinderCapacity;
+        setCylinderCapacity(cylinderCapacity);
     }
 
     public int getCylinderCapacity() {

@@ -19,14 +19,14 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HUC-49C"/>
+            android:text="@string/licensePlateFormat"/>
 
         <TextView
             android:layout_marginTop="10dp"
             android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha de ingreso: "/>
+            android:text="@string/entryDate"/>
 
         <TextView
             android:id="@+id/tvEntryDate"
@@ -35,14 +35,14 @@
             android:textStyle="italic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2021-05-25T21:16:00.703"/>
+            android:text="@string/dateFormat"/>
 
         <Button
             android:id="@+id/btCollect"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cobrar"
+            android:text="@string/buttonCollect"
             android:layout_gravity="end"/>
     </LinearLayout>
 
