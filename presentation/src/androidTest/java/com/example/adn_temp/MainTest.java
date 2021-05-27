@@ -9,7 +9,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class MainTest {
 
-    public static void  clickButton(Integer idButton) {
+    public static void clickButton(Integer idButton) {
         onView(withId(idButton)).perform(click());
     }
 

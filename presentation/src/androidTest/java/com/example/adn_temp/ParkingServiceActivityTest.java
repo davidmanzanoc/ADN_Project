@@ -13,7 +13,7 @@ public class ParkingServiceActivityTest {
 
     @Test
     public void saveCar_carSaved_carOnDisplay() {
-        try( ActivityScenario<ParkingServiceActivity> launchActivity = ActivityScenario.
+        try (ActivityScenario<ParkingServiceActivity> launchActivity = ActivityScenario.
                 launch(ParkingServiceActivity.class)) {
             //Arrange
             String licensePlate = "YMU-950";
@@ -22,6 +22,26 @@ public class ParkingServiceActivityTest {
                     getResRadioButtonCar());
             ParkingServiceActivityResources.editText(ParkingServiceActivityResources.
                     getResEditTextLicensePlate(), licensePlate);
+            //Assert
+            ParkingServiceActivityResources.clickButton(ParkingServiceActivityResources.
+                    getResButtonSaveVehicle());
+        }
+    }
+
+    @Test
+    public void saveMotorcycle_motorcycleSaved_isCorrect() {
+        try (ActivityScenario<ParkingServiceActivity> launchActivity = ActivityScenario.
+                launch(ParkingServiceActivity.class)) {
+            //Arrange
+            String licensePlate = "YMU-95C";
+            String cylinderCapacity = "650";
+            //Act
+            ParkingServiceActivityResources.clickButton(ParkingServiceActivityResources.
+                    getResRadioButtonMotorcycle());
+            ParkingServiceActivityResources.editText(ParkingServiceActivityResources.
+                    getResEditTextLicensePlate(), licensePlate);
+            ParkingServiceActivityResources.editText(ParkingServiceActivityResources.
+                    getResEditTextCylinderCapacity(), cylinderCapacity);
             //Assert
             ParkingServiceActivityResources.clickButton(ParkingServiceActivityResources.
                     getResButtonSaveVehicle());
