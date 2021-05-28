@@ -10,4 +10,6 @@
     <string name="licensePlateFormat">HUC-956</string>
     <string name="entryDate">Fecha de ingreso:</string>
     <string name="dateFormat">2021–05–25T21:16:00.703</string>
+    <string name="vehicleSaved">Vehiculo guardado con éxito!</string>
+    <string name="vehicleNotSavedException">Error al guardar vehiculo: </string>
 </resources>

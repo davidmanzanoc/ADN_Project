@@ -20,13 +20,13 @@ import javax.inject.Inject;
 
 public class ParkingService {
 
-    private CarRepository carRepository;
-    private MotorcycleRepository motorcycleRepository;
+    private final CarRepository carRepository;
+    private final MotorcycleRepository motorcycleRepository;
     private static final String FIRST_LETTER_LICENSE_PLATE = "A";
     private static final int SUNDAY = 7;
     private static final int MONDAY = 1;
     public static final int MAX_NUMBER_OF_CARS = 20;
-    public static int MAX_NUMBER_OF_MOTORCYCLES = 10;
+    public static final int MAX_NUMBER_OF_MOTORCYCLES = 10;
     private static final float MILLISECONDS_IN_AN_HOUR = 3600000;
     private static final int HOURS_IN_A_DAY = 24;
     private static final int HOUR_LIMIT = 9;
