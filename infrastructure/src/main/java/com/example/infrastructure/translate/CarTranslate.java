@@ -9,6 +9,8 @@ import java.util.List;
 
 public class CarTranslate {
 
+    private CarTranslate() {}
+
     public static CarEntity translateCarFromDomainToDB(Car car) {
         CarEntity carEntity = new CarEntity();
         carEntity.setLicensePlate(car.getLicensePlate());

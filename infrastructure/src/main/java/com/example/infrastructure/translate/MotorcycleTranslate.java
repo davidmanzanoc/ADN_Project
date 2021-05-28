@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MotorcycleTranslate {
 
+    private MotorcycleTranslate() {}
+
     public static MotorcycleEntity translateMotorcycleFromDomainToDB(Motorcycle motorcycle) {
         MotorcycleEntity motorcycleEntity = new MotorcycleEntity();
         motorcycleEntity.setLicensePlate(motorcycle.getLicensePlate());
