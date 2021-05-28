@@ -1,8 +1,8 @@
 package com.example.infrastructure.repository;
 
 import android.content.Context;
-import android.util.Log;
 
+import com.example.domain.parking.exception.GlobalException;
 import com.example.domain.vehicle.motorcycle.model.Motorcycle;
 import com.example.domain.vehicle.motorcycle.repository.MotorcycleRepository;
 import com.example.infrastructure.database.ParkingDatabase;
@@ -14,7 +14,6 @@ import com.example.infrastructure.translate.MotorcycleTranslate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -45,12 +44,12 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
 
     @Override
     public int getNumberOfMotorcycles() {
-        int numberOfMotorcycles = 0;
+        int numberOfMotorcycles;
         GetNumberOfMotorcyclesThread getNumberOfMotorcyclesThread = new GetNumberOfMotorcyclesThread(parkingDatabase);
         try {
             numberOfMotorcycles = getNumberOfMotorcyclesThread.execute().get();
         } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new GlobalException("Error al obtener la cantidad de motos", e.getCause());
         }
         return numberOfMotorcycles;
     }
@@ -63,7 +62,7 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
         try {
             motorcycleEntityList = getMotorcyclesThread.execute().get();
         } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new GlobalException("Error al obtener la lista de motos", e.getCause());
         }
         motorcycleList.addAll(MotorcycleTranslate.translateMotorcycleListFromDBToDomain(motorcycleEntityList));
         return motorcycleList;

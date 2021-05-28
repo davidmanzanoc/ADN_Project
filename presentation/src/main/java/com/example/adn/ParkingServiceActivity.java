@@ -1,10 +1,12 @@
 package com.example.adn;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class ParkingServiceActivity extends AppCompatActivity {
 
     private ParkingViewModel parkingViewModel;
     private ActivityParkingServiceBinding binding;
+    private boolean motorcycleType = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,20 @@ public class ParkingServiceActivity extends AppCompatActivity {
         setContentView(view);
         initElements();
         onClickManager();
+        validateSavedInstance(savedInstanceState);
+    }
+
+    private void validateSavedInstance(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            motorcycleType = savedInstanceState.getBoolean("motorcycleType");
+            activateCylinderCapacityEdtText();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("motorcycleType", motorcycleType);
     }
 
     private void initElements() {
@@ -52,9 +69,25 @@ public class ParkingServiceActivity extends AppCompatActivity {
     }
 
     private void onClickManager() {
-        binding.radioButtonMotorcycle.setOnClickListener(v -> binding.editTextCylinderCapacity.setVisibility(View.VISIBLE));
-        binding.radioButtonCar.setOnClickListener(v -> binding.editTextCylinderCapacity.setVisibility(View.GONE));
+        binding.radioButtonMotorcycle.setOnClickListener(v -> {
+            motorcycleType = true;
+            activateCylinderCapacityEdtText();
+        });
+        binding.radioButtonCar.setOnClickListener(v -> {
+            motorcycleType = false;
+            activateCylinderCapacityEdtText();
+        });
         binding.buttonSaveVehicle.setOnClickListener(v -> saveVehicle());
+    }
+
+    private void activateCylinderCapacityEdtText(){
+        if (motorcycleType){
+            binding.radioButtonMotorcycle.setChecked(true);
+            binding.editTextCylinderCapacity.setVisibility(View.VISIBLE);
+        } else {
+            binding.editTextCylinderCapacity.setVisibility(View.GONE);
+            binding.radioButtonCar.setChecked(true);
+        }
     }
 
     private void saveVehicle() {
