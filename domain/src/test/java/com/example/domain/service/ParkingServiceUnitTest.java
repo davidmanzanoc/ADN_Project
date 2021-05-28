@@ -46,7 +46,7 @@ public class ParkingServiceUnitTest {
                 .of(2021, 5, 23, 13, 57, 0);
         LocalDateTime exitDate = LocalDateTime
                 .of(2021, 5, 23, 17, 57, 0);
-        Vehicle vehicle = new Vehicle("YMU-95C", entryDate);
+        Vehicle vehicle = new Car("YMU-95C", entryDate);
         //Act
         int parkingTime = parkingService.getParkingTime(vehicle.getEntryDate(), exitDate);
         //Assert

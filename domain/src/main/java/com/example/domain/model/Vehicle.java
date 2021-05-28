@@ -17,7 +17,7 @@ public class Vehicle {
         return licensePlate;
     }
 
-    public void setLicensePlate(String licensePlate) {
+    private void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
     }
 
@@ -25,7 +25,7 @@ public class Vehicle {
         return entryDate;
     }
 
-    public void setEntryDate(LocalDateTime entryDate) {
+    private void setEntryDate(LocalDateTime entryDate) {
         this.entryDate = entryDate;
     }
 

@@ -16,7 +16,7 @@ public class Motorcycle extends Vehicle {
         return cylinderCapacity;
     }
 
-    public void setCylinderCapacity(int cylinderCapacity) {
+    private void setCylinderCapacity(int cylinderCapacity) {
         this.cylinderCapacity = cylinderCapacity;
     }
 
