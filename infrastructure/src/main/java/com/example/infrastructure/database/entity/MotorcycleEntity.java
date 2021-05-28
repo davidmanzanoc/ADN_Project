@@ -8,9 +8,9 @@ public class MotorcycleEntity {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
-    public String licensePlate;
-    public String entryDate;
-    public int cylinderCapacity;
+    private String licensePlate;
+    private String entryDate;
+    private int cylinderCapacity;
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
@@ -22,5 +22,17 @@ public class MotorcycleEntity {
 
     public void setCylinderCapacity(int cylinderCapacity) {
         this.cylinderCapacity = cylinderCapacity;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public String getEntryDate() {
+        return entryDate;
+    }
+
+    public int getCylinderCapacity() {
+        return cylinderCapacity;
     }
 }

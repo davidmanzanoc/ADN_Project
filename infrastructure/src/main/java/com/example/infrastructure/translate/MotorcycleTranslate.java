@@ -18,8 +18,8 @@ public class MotorcycleTranslate {
     }
 
     public static Motorcycle translateMotorcycleFromDBToDomain(MotorcycleEntity motorcycleEntity) {
-        LocalDateTime localDateTime = LocalDateTime.parse(motorcycleEntity.entryDate);
-        return new Motorcycle(motorcycleEntity.licensePlate, localDateTime, motorcycleEntity.cylinderCapacity);
+        LocalDateTime localDateTime = LocalDateTime.parse(motorcycleEntity.getEntryDate());
+        return new Motorcycle(motorcycleEntity.getLicensePlate(), localDateTime, motorcycleEntity.getCylinderCapacity());
     }
 
     public static List<Motorcycle> translateMotorcycleListFromDBToDomain(List<MotorcycleEntity> motorcycleList) {

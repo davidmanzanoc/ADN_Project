@@ -17,8 +17,8 @@ public class CarTranslate {
     }
 
     public static Car translateCarFromDBToDomain(CarEntity carEntity) {
-        LocalDateTime localDateTime = LocalDateTime.parse(carEntity.entryDate);
-        return new Car(carEntity.licensePlate, localDateTime);
+        LocalDateTime localDateTime = LocalDateTime.parse(carEntity.getEntryDate());
+        return new Car(carEntity.getLicensePlate(), localDateTime);
     }
 
     public static List<Car> translateCarListFromDBToDomain(List<CarEntity> carList) {

@@ -37,7 +37,7 @@ public class CarRepositoryRoom implements CarRepository {
     public void deleteCar(Car car) {
         CarEntity carEntity = CarTranslate.translateCarFromDomainToDB(car);
         ParkingDatabase.EXECUTOR_SERVICE.execute(() ->
-                parkingDatabase.carDao().deleteCar(carEntity.licensePlate));
+                parkingDatabase.carDao().deleteCar(carEntity.getLicensePlate()));
     }
 
     @Override
