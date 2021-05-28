@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.adn_temp.adapter.VehicleAdapter;
+import com.example.adn_temp.databinding.ActivityParkingServiceBinding;
 import com.example.adn_temp.viewmodel.ParkingViewModel;
 import com.example.domain.model.Car;
 import com.example.domain.model.Motorcycle;
@@ -26,58 +27,49 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ParkingServiceActivity extends AppCompatActivity {
 
-    private EditText editTextLicensePlate;
-    private EditText editTextCylinderCapacity;
-    private RadioButton radioButtonMotorcycle;
-    private RadioButton radioButtonCar;
-    private Button buttonSaveVehicle;
-    private RecyclerView recyclerViewVehicles;
     private VehicleAdapter vehicleAdapter;
 
     private ParkingViewModel parkingViewModel;
+    private ActivityParkingServiceBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parking_service);
+        binding = ActivityParkingServiceBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         initElements();
         onClickManager();
     }
 
     private void initElements() {
         parkingViewModel = new ViewModelProvider(this).get(ParkingViewModel.class);
-        recyclerViewVehicles = findViewById(R.id.recyclerViewVehicles);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerViewVehicles.setLayoutManager(linearLayoutManager);
-        editTextLicensePlate = findViewById(R.id.editTextLicensePlate);
-        editTextCylinderCapacity = findViewById(R.id.editTextCylinderCapacity);
-        radioButtonMotorcycle = findViewById(R.id.radioButtonMotorcycle);
-        radioButtonCar = findViewById(R.id.radioButtonCar);
-        buttonSaveVehicle = findViewById(R.id.buttonSaveVehicle);
+        binding.recyclerViewVehicles.setLayoutManager(linearLayoutManager);
         parkingViewModel.getVehicleMutableList().observe(this, this::updateAdapter);
     }
 
     private void updateAdapter(List<Vehicle> vehicleList) {
         vehicleAdapter = new VehicleAdapter(vehicleList, this);
-        recyclerViewVehicles.setAdapter(vehicleAdapter);
+        binding.recyclerViewVehicles.setAdapter(vehicleAdapter);
     }
 
     private void onClickManager() {
-        radioButtonMotorcycle.setOnClickListener(v -> editTextCylinderCapacity.setVisibility(View.VISIBLE));
-        radioButtonCar.setOnClickListener(v -> editTextCylinderCapacity.setVisibility(View.GONE));
-        buttonSaveVehicle.setOnClickListener(v -> saveVehicle());
+        binding.radioButtonMotorcycle.setOnClickListener(v -> binding.editTextCylinderCapacity.setVisibility(View.VISIBLE));
+        binding.radioButtonCar.setOnClickListener(v -> binding.editTextCylinderCapacity.setVisibility(View.GONE));
+        binding.buttonSaveVehicle.setOnClickListener(v -> saveVehicle());
     }
 
     private void saveVehicle() {
-        String cylinderCapacity = editTextCylinderCapacity.getText().toString();
-        String licensePlate = editTextLicensePlate.getText().toString();
-        if (radioButtonCar.isChecked() && !licensePlate.equals("")) {
+        String cylinderCapacity = binding.editTextCylinderCapacity.getText().toString();
+        String licensePlate = binding.editTextLicensePlate.getText().toString();
+        if (binding.radioButtonCar.isChecked() && !licensePlate.equals("")) {
             Vehicle vehicle = new Car(licensePlate, LocalDateTime.now());
             parkingViewModel.saveVehicle(vehicle).observe(this, result ->
                     Toast.makeText(this, result, Toast.LENGTH_SHORT).show());
             clearFields();
-        } else if (radioButtonMotorcycle.isChecked() && !licensePlate.equals("") && !cylinderCapacity.equals("")) {
+        } else if (binding.radioButtonMotorcycle.isChecked() && !licensePlate.equals("") && !cylinderCapacity.equals("")) {
             int cylinderCapacityInt = Integer.parseInt(cylinderCapacity);
             Vehicle vehicle = new Motorcycle(licensePlate, LocalDateTime.now(), cylinderCapacityInt);
             parkingViewModel.saveVehicle(vehicle).observe(this, result ->
@@ -90,8 +82,8 @@ public class ParkingServiceActivity extends AppCompatActivity {
     }
 
     private void clearFields() {
-        editTextCylinderCapacity.setText("");
-        editTextLicensePlate.setText("");
+        binding.editTextCylinderCapacity.setText("");
+        binding.editTextLicensePlate.setText("");
     }
 
     public void collectParkingService(Vehicle vehicle) {
