@@ -26,12 +26,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ParkingServiceActivity extends AppCompatActivity {
 
-    private EditText etLicensePlate;
-    private EditText etCylinderCapacity;
-    private RadioButton rbMotorcycle;
-    private RadioButton rbCar;
-    private Button btSaveVehicle;
-    private RecyclerView rvVehicles;
+    private EditText editTextLicensePlate;
+    private EditText editTextCylinderCapacity;
+    private RadioButton radioButtonMotorcycle;
+    private RadioButton radioButtonCar;
+    private Button buttonSaveVehicle;
+    private RecyclerView recyclerViewVehicles;
     private VehicleAdapter vehicleAdapter;
 
     private ParkingViewModel parkingViewModel;
@@ -46,38 +46,38 @@ public class ParkingServiceActivity extends AppCompatActivity {
 
     private void initElements() {
         parkingViewModel = new ViewModelProvider(this).get(ParkingViewModel.class);
-        rvVehicles = findViewById(R.id.rvVehicles);
+        recyclerViewVehicles = findViewById(R.id.recyclerViewVehicles);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rvVehicles.setLayoutManager(linearLayoutManager);
-        etLicensePlate = findViewById(R.id.etLicensePlate);
-        etCylinderCapacity = findViewById(R.id.etCylinderCapacity);
-        rbMotorcycle = findViewById(R.id.rbMotorcycle);
-        rbCar = findViewById(R.id.rbCar);
-        btSaveVehicle = findViewById(R.id.btSaveVehicle);
+        recyclerViewVehicles.setLayoutManager(linearLayoutManager);
+        editTextLicensePlate = findViewById(R.id.editTextLicensePlate);
+        editTextCylinderCapacity = findViewById(R.id.editTextCylinderCapacity);
+        radioButtonMotorcycle = findViewById(R.id.radioButtonMotorcycle);
+        radioButtonCar = findViewById(R.id.radioButtonCar);
+        buttonSaveVehicle = findViewById(R.id.buttonSaveVehicle);
         parkingViewModel.getVehicleMutableList().observe(this, this::updateAdapter);
     }
 
     private void updateAdapter(List<Vehicle> vehicleList) {
         vehicleAdapter = new VehicleAdapter(vehicleList, this);
-        rvVehicles.setAdapter(vehicleAdapter);
+        recyclerViewVehicles.setAdapter(vehicleAdapter);
     }
 
     private void onClickManager() {
-        rbMotorcycle.setOnClickListener(v -> etCylinderCapacity.setVisibility(View.VISIBLE));
-        rbCar.setOnClickListener(v -> etCylinderCapacity.setVisibility(View.GONE));
-        btSaveVehicle.setOnClickListener(v -> saveVehicle());
+        radioButtonMotorcycle.setOnClickListener(v -> editTextCylinderCapacity.setVisibility(View.VISIBLE));
+        radioButtonCar.setOnClickListener(v -> editTextCylinderCapacity.setVisibility(View.GONE));
+        buttonSaveVehicle.setOnClickListener(v -> saveVehicle());
     }
 
     private void saveVehicle() {
-        String cylinderCapacity = etCylinderCapacity.getText().toString();
-        String licensePlate = etLicensePlate.getText().toString();
-        if (rbCar.isChecked() && !licensePlate.equals("")) {
+        String cylinderCapacity = editTextCylinderCapacity.getText().toString();
+        String licensePlate = editTextLicensePlate.getText().toString();
+        if (radioButtonCar.isChecked() && !licensePlate.equals("")) {
             Vehicle vehicle = new Car(licensePlate, LocalDateTime.now());
             parkingViewModel.saveVehicle(vehicle).observe(this, result ->
                     Toast.makeText(this, result, Toast.LENGTH_SHORT).show());
             clearFields();
-        } else if (rbMotorcycle.isChecked() && !licensePlate.equals("") && !cylinderCapacity.equals("")) {
+        } else if (radioButtonMotorcycle.isChecked() && !licensePlate.equals("") && !cylinderCapacity.equals("")) {
             int cylinderCapacityInt = Integer.parseInt(cylinderCapacity);
             Vehicle vehicle = new Motorcycle(licensePlate, LocalDateTime.now(), cylinderCapacityInt);
             parkingViewModel.saveVehicle(vehicle).observe(this, result ->
@@ -90,8 +90,8 @@ public class ParkingServiceActivity extends AppCompatActivity {
     }
 
     private void clearFields() {
-        etCylinderCapacity.setText("");
-        etLicensePlate.setText("");
+        editTextCylinderCapacity.setText("");
+        editTextLicensePlate.setText("");
     }
 
     public void collectParkingService(Vehicle vehicle) {

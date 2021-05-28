@@ -14,21 +14,21 @@ import com.example.domain.model.Vehicle;
 
 public class VehicleViewHolder extends RecyclerView.ViewHolder{
 
-    private final TextView etLicensePlate;
-    private final TextView etEntryDate;
-    private final Button btCollect;
+    private final TextView textViewLicensePlate;
+    private final TextView textViewEntryDate;
+    private final Button buttonCollect;
 
     public VehicleViewHolder(@NonNull View itemView) {
         super(itemView);
-        etLicensePlate = itemView.findViewById(R.id.tvLicensePlate);
-        etEntryDate = itemView.findViewById(R.id.tvEntryDate);
-        btCollect = itemView.findViewById(R.id.btCollect);
+        textViewLicensePlate = itemView.findViewById(R.id.textViewLicensePlate);
+        textViewEntryDate = itemView.findViewById(R.id.textViewEntryDate);
+        buttonCollect = itemView.findViewById(R.id.buttonCollect);
     }
 
     public void bindData(Vehicle vehicle, Activity activity) {
-        etLicensePlate.setText(vehicle.getLicensePlate());
-        etEntryDate.setText(vehicle.getEntryDate().toString());
-        btCollect.setOnClickListener(v -> {
+        textViewLicensePlate.setText(vehicle.getLicensePlate());
+        textViewEntryDate.setText(vehicle.getEntryDate().toString());
+        buttonCollect.setOnClickListener(v -> {
             ParkingServiceActivity parkingServiceActivity = (ParkingServiceActivity) activity;
             parkingServiceActivity.collectParkingService(vehicle);
         });
