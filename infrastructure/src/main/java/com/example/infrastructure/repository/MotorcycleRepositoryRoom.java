@@ -14,6 +14,7 @@ import com.example.infrastructure.translate.MotorcycleTranslate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -49,7 +50,7 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
         try {
             numberOfMotorcycles = getNumberOfMotorcyclesThread.execute().get();
         } catch (ExecutionException | InterruptedException e) {
-            Log.e("getNumberOfMotorcycles", "" + e.getMessage());
+            throw new RuntimeException(e);
         }
         return numberOfMotorcycles;
     }
@@ -58,12 +59,13 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
     public List<Motorcycle> getMotorcycles() {
         List<Motorcycle> motorcycleList = new ArrayList<>();
         GetMotorcyclesThread getMotorcyclesThread = new GetMotorcyclesThread(parkingDatabase);
+        List<MotorcycleEntity> motorcycleEntityList = null;
         try {
-            List<MotorcycleEntity> motorcycleEntityList = getMotorcyclesThread.execute().get();
-            motorcycleList.addAll(MotorcycleTranslate.translateMotorcycleListFromDBToDomain(motorcycleEntityList));
+            motorcycleEntityList = getMotorcyclesThread.execute().get();
         } catch (ExecutionException | InterruptedException e) {
-            Log.e("getMotorcycles", "" + e.getMessage());
+            throw new RuntimeException(e);
         }
+        motorcycleList.addAll(MotorcycleTranslate.translateMotorcycleListFromDBToDomain(motorcycleEntityList));
         return motorcycleList;
     }
 }
