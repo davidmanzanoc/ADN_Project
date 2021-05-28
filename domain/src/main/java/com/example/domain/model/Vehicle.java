@@ -2,32 +2,19 @@ package com.example.domain.model;
 
 import java.time.LocalDateTime;
 
-public class Vehicle {
+public abstract class Vehicle {
 
-    private String licensePlate;
-    private LocalDateTime entryDate;
+    protected String licensePlate;
+    protected LocalDateTime entryDate;
     private static final Rate RATE = new Rate(0, 0, 0);
 
-    public Vehicle(String licensePlate, LocalDateTime entryDate) {
-        setLicensePlate(licensePlate);
-        setEntryDate(entryDate);
-    }
+    public abstract String getLicensePlate();
 
-    public String getLicensePlate() {
-        return licensePlate;
-    }
+    protected abstract void setLicensePlate(String licensePlate);
 
-    private void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
+    public abstract LocalDateTime getEntryDate();
 
-    public LocalDateTime getEntryDate() {
-        return entryDate;
-    }
-
-    private void setEntryDate(LocalDateTime entryDate) {
-        this.entryDate = entryDate;
-    }
+    protected abstract void setEntryDate(LocalDateTime entryDate);
 
     public Rate getRATE() {
         return RATE;
