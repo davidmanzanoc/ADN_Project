@@ -2,8 +2,8 @@ package com.example.infrastructure.repository;
 
 import android.content.Context;
 
-import com.example.domain.model.Motorcycle;
-import com.example.domain.repository.MotorcycleRepository;
+import com.example.domain.vehicle.motorcycle.model.Motorcycle;
+import com.example.domain.vehicle.motorcycle.repository.MotorcycleRepository;
 import com.example.infrastructure.database.ParkingDatabase;
 import com.example.infrastructure.database.entity.MotorcycleEntity;
 import com.example.infrastructure.threads.motorcycle.GetMotorcyclesThread;

@@ -1,4 +1,4 @@
-rootProject.name = "adn_temp"
+rootProject.name = "adn"
 include ':presentation'
 include ':domain'
 include ':infrastructure'

@@ -1,10 +1,9 @@
 package com.example.infrastructure.translate;
 
-import com.example.domain.model.Car;
+import com.example.domain.vehicle.car.model.Car;
 import com.example.infrastructure.database.entity.CarEntity;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +23,7 @@ public class CarTranslate {
 
     public static List<Car> translateCarListFromDBToDomain(List<CarEntity> carList) {
         List<Car> translatedCarList = new ArrayList<>();
-        for (CarEntity carEntity : carList) {
-            translatedCarList.add(translateCarFromDBToDomain(carEntity));
-        }
+        carList.forEach(car -> translatedCarList.add(translateCarFromDBToDomain(car)));
         return translatedCarList;
     }
 }

@@ -2,8 +2,8 @@ package com.example.infrastructure.repository;
 
 import android.content.Context;
 
-import com.example.domain.model.Car;
-import com.example.domain.repository.CarRepository;
+import com.example.domain.vehicle.car.model.Car;
+import com.example.domain.vehicle.car.repository.CarRepository;
 import com.example.infrastructure.database.ParkingDatabase;
 import com.example.infrastructure.database.entity.CarEntity;
 import com.example.infrastructure.threads.car.GetCarsThread;
@@ -13,8 +13,6 @@ import com.example.infrastructure.translate.CarTranslate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
