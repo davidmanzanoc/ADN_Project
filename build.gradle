@@ -7,7 +7,7 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
@@ -20,15 +20,15 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter() // Warning: this repository is going to shut down soon
+        mavenCentral() // Warning: this repository is going to shut down soon
     }
-}
 
-configurations.all {
-    resolutionStrategy {
-        eachDependency { details ->
-            if (details.requested.group == 'org.jacoco') {
-                details.useVersion jacocoVersion
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { details ->
+                if (details.requested.group == 'org.jacoco') {
+                    details.useVersion jacocoVersion
+                }
             }
         }
     }
