@@ -1,6 +1,7 @@
 package com.example.infrastructure.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.domain.vehicle.motorcycle.model.Motorcycle;
 import com.example.domain.vehicle.motorcycle.repository.MotorcycleRepository;
@@ -48,7 +49,7 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
         try {
             numberOfMotorcycles = getNumberOfMotorcyclesThread.execute().get();
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            Log.e("getNumberOfMotorcycles", "" + e.getMessage());
         }
         return numberOfMotorcycles;
     }
@@ -61,7 +62,7 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
             List<MotorcycleEntity> motorcycleEntityList = getMotorcyclesThread.execute().get();
             motorcycleList.addAll(MotorcycleTranslate.translateMotorcycleListFromDBToDomain(motorcycleEntityList));
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            Log.e("getMotorcycles", "" + e.getMessage());
         }
         return motorcycleList;
     }

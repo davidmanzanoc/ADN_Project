@@ -1,6 +1,7 @@
 package com.example.infrastructure.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.domain.vehicle.car.model.Car;
 import com.example.domain.vehicle.car.repository.CarRepository;
@@ -47,7 +48,7 @@ public class CarRepositoryRoom implements CarRepository {
         try {
             numberOfCars = getNumberOfCarsThread.execute().get();
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            Log.e("getNumberOfCars", "" + e.getMessage());
         }
         return numberOfCars;
     }
@@ -60,7 +61,7 @@ public class CarRepositoryRoom implements CarRepository {
             List<CarEntity> carEntityList = getCarsThread.execute().get();
             carList.addAll(CarTranslate.translateCarListFromDBToDomain(carEntityList));
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            Log.e("getCars", "" + e.getMessage());
         }
         return carList;
     }
