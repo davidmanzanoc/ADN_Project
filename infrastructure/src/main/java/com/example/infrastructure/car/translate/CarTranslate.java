@@ -1,7 +1,7 @@
-package com.example.infrastructure.translate;
+package com.example.infrastructure.car.translate;
 
 import com.example.domain.vehicle.car.model.Car;
-import com.example.infrastructure.database.entity.CarEntity;
+import com.example.infrastructure.car.database.entity.CarEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

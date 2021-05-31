@@ -1,4 +1,4 @@
-package com.example.infrastructure.threads.motorcycle;
+package com.example.infrastructure.motorcycle.threads;
 
 import android.os.AsyncTask;
 

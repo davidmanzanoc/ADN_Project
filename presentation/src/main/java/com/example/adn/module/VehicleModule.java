@@ -2,8 +2,8 @@ package com.example.adn.module;
 
 import com.example.domain.vehicle.car.repository.CarRepository;
 import com.example.domain.vehicle.motorcycle.repository.MotorcycleRepository;
-import com.example.infrastructure.repository.CarRepositoryRoom;
-import com.example.infrastructure.repository.MotorcycleRepositoryRoom;
+import com.example.infrastructure.car.respository.CarRepositoryRoom;
+import com.example.infrastructure.motorcycle.repository.MotorcycleRepositoryRoom;
 
 import dagger.Binds;
 import dagger.Module;

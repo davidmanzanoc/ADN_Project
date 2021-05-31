@@ -1,4 +1,4 @@
-package com.example.infrastructure.database.entity;
+package com.example.infrastructure.motorcycle.database.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

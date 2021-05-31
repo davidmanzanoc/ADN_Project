@@ -1,9 +1,9 @@
-package com.example.infrastructure.threads.car;
+package com.example.infrastructure.car.threads;
 
 import android.os.AsyncTask;
 
 import com.example.infrastructure.database.ParkingDatabase;
-import com.example.infrastructure.database.entity.CarEntity;
+import com.example.infrastructure.car.database.entity.CarEntity;
 
 import java.util.List;
 

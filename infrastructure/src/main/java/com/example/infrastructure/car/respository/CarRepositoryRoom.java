@@ -1,4 +1,4 @@
-package com.example.infrastructure.repository;
+package com.example.infrastructure.car.respository;
 
 import android.content.Context;
 
@@ -6,10 +6,10 @@ import com.example.domain.parking.exception.GlobalException;
 import com.example.domain.vehicle.car.model.Car;
 import com.example.domain.vehicle.car.repository.CarRepository;
 import com.example.infrastructure.database.ParkingDatabase;
-import com.example.infrastructure.database.entity.CarEntity;
-import com.example.infrastructure.threads.car.GetCarsThread;
-import com.example.infrastructure.threads.car.GetNumberOfCarsThread;
-import com.example.infrastructure.translate.CarTranslate;
+import com.example.infrastructure.car.database.entity.CarEntity;
+import com.example.infrastructure.car.threads.GetCarsThread;
+import com.example.infrastructure.car.threads.GetNumberOfCarsThread;
+import com.example.infrastructure.car.translate.CarTranslate;
 
 import java.util.ArrayList;
 import java.util.List;

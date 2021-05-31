@@ -1,10 +1,10 @@
-package com.example.infrastructure.database.dao;
+package com.example.infrastructure.car.database.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.infrastructure.database.entity.CarEntity;
+import com.example.infrastructure.car.database.entity.CarEntity;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package com.example.infrastructure.database.dao;
+package com.example.infrastructure.motorcycle.database.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.infrastructure.database.entity.MotorcycleEntity;
+import com.example.infrastructure.motorcycle.database.entity.MotorcycleEntity;
 
 import java.util.List;
 
