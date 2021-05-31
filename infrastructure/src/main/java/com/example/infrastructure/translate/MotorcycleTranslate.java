@@ -21,7 +21,7 @@ public final class MotorcycleTranslate {
 
     public static Motorcycle translateMotorcycleFromDBToDomain(MotorcycleEntity motorcycleEntity) {
         LocalDateTime localDateTime = LocalDateTime.parse(motorcycleEntity.getEntryDate());
-        return new Motorcycle(motorcycleEntity.getLicensePlate(), localDateTime, motorcycleEntity.getCylinderCapacity());
+        return new Motorcycle(motorcycleEntity.getLicensePlate(), localDateTime, String.valueOf(motorcycleEntity.getCylinderCapacity()));
     }
 
     public static List<Motorcycle> translateMotorcycleListFromDBToDomain(List<MotorcycleEntity> motorcycleList) {

@@ -116,7 +116,7 @@ public class ParkingServiceUnitTest {
                 .of(2021, 5, 23, 13, 57, 0);
         LocalDateTime exitDate = LocalDateTime
                 .of(2021, 5, 23, 18, 57, 0);
-        Motorcycle motorcycle = new Motorcycle("YMU-95C", entryDate, 500);
+        Motorcycle motorcycle = new Motorcycle("YMU-95C", entryDate, "500");
         //Act
         int parkingCost = parkingService.motorcycleParkingCost(motorcycle, exitDate);
         //Assert
@@ -130,7 +130,7 @@ public class ParkingServiceUnitTest {
                 .of(2021, 5, 23, 13, 57, 0);
         LocalDateTime exitDate = LocalDateTime
                 .of(2021, 5, 24, 13, 57, 0);
-        Motorcycle motorcycle = new Motorcycle("YMU-95C", entryDate, 650);
+        Motorcycle motorcycle = new Motorcycle("YMU-95C", entryDate, "650");
         //Act
         int parkingCost = parkingService.motorcycleParkingCost(motorcycle, exitDate);
         //Assert
@@ -199,7 +199,7 @@ public class ParkingServiceUnitTest {
         LocalDateTime entryDate = LocalDateTime
                 .of(2021, 5, 23, 13, 57, 0);
         int sunday = 7;
-        Motorcycle motorcycle = new Motorcycle("YMU-95C", entryDate, 500);
+        Motorcycle motorcycle = new Motorcycle("YMU-95C", entryDate, "500");
         when(motorcycleRepository.getNumberOfMotorcycles()).thenReturn(parkingService.MAX_NUMBER_OF_MOTORCYCLES);
         //Act
         try {
@@ -216,7 +216,7 @@ public class ParkingServiceUnitTest {
         LocalDateTime entryDate = LocalDateTime
                 .of(2021, 5, 23, 13, 57, 0);
         int sunday = 7;
-        Motorcycle motorcycle = new Motorcycle("AMU-95C", entryDate, 500);
+        Motorcycle motorcycle = new Motorcycle("AMU-95C", entryDate, "500");
         when(motorcycleRepository.getNumberOfMotorcycles()).thenReturn(7);
         //Act
         try {

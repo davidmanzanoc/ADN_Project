@@ -44,7 +44,7 @@ public class ParkingServiceActivity extends AppCompatActivity {
     private void validateSavedInstance(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             motorcycleType = savedInstanceState.getBoolean("motorcycleType");
-            activateCylinderCapacityEdtText();
+            activateCylinderCapacityEditText();
         }
     }
 
@@ -70,16 +70,16 @@ public class ParkingServiceActivity extends AppCompatActivity {
     private void onClickManager() {
         binding.radioButtonMotorcycle.setOnClickListener(v -> {
             motorcycleType = true;
-            activateCylinderCapacityEdtText();
+            activateCylinderCapacityEditText();
         });
         binding.radioButtonCar.setOnClickListener(v -> {
             motorcycleType = false;
-            activateCylinderCapacityEdtText();
+            activateCylinderCapacityEditText();
         });
         binding.buttonSaveVehicle.setOnClickListener(v -> saveVehicle());
     }
 
-    private void activateCylinderCapacityEdtText(){
+    private void activateCylinderCapacityEditText(){
         if (motorcycleType){
             binding.radioButtonMotorcycle.setChecked(true);
             binding.editTextCylinderCapacity.setVisibility(View.VISIBLE);
@@ -92,19 +92,22 @@ public class ParkingServiceActivity extends AppCompatActivity {
     private void saveVehicle() {
         String cylinderCapacity = binding.editTextCylinderCapacity.getText().toString();
         String licensePlate = binding.editTextLicensePlate.getText().toString();
-        if (binding.radioButtonCar.isChecked() && !licensePlate.equals("")) {
-            Vehicle vehicle = new Car(licensePlate, LocalDateTime.now());
-            parkingViewModel.saveVehicle(vehicle).observe(this, result ->
-                    Toast.makeText(this, result, Toast.LENGTH_SHORT).show());
-            clearFields();
-        } else if (binding.radioButtonMotorcycle.isChecked() && !licensePlate.equals("") && !cylinderCapacity.equals("")) {
-            int cylinderCapacityInt = Integer.parseInt(cylinderCapacity);
-            Vehicle vehicle = new Motorcycle(licensePlate, LocalDateTime.now(), cylinderCapacityInt);
-            parkingViewModel.saveVehicle(vehicle).observe(this, result ->
-                    Toast.makeText(this, result, Toast.LENGTH_SHORT).show());
-            clearFields();
-        } else {
-            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
+        try {
+            if (binding.radioButtonCar.isChecked()) {
+                Vehicle vehicle = new Car(licensePlate, LocalDateTime.now());
+                parkingViewModel.saveVehicle(vehicle).observe(this, result ->
+                        Toast.makeText(this, result, Toast.LENGTH_SHORT).show());
+                clearFields();
+            } else if (binding.radioButtonMotorcycle.isChecked()) {
+                Vehicle vehicle = new Motorcycle(licensePlate, LocalDateTime.now(), cylinderCapacity);
+                parkingViewModel.saveVehicle(vehicle).observe(this, result ->
+                        Toast.makeText(this, result, Toast.LENGTH_SHORT).show());
+                clearFields();
+            } else {
+                Toast.makeText(this, "Seleccione el tipo de vehiculo", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "" +e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         vehicleAdapter.notifyDataSetChanged();
     }

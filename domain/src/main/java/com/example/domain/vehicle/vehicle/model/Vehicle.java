@@ -1,5 +1,6 @@
 package com.example.domain.vehicle.vehicle.model;
 
+import com.example.domain.parking.exception.GlobalException;
 import com.example.domain.parking.model.Rate;
 
 import java.time.LocalDateTime;
@@ -20,7 +21,10 @@ public class Vehicle {
     }
 
     private void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
+        if (!licensePlate.equals(""))
+            this.licensePlate = licensePlate;
+        else
+            throw new GlobalException("Ingrese la placa del vehiculo", new Exception());
     }
 
     public LocalDateTime getEntryDate() {
