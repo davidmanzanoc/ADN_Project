@@ -12,12 +12,12 @@ import dagger.hilt.android.components.ActivityComponent;
 
 @Module
 @InstallIn({ActivityComponent.class})
-public abstract class VehicleModule {
+public interface VehicleModule {
 
     @Binds
-    public abstract CarRepository injectCarRepository(CarRepositoryRoom carRepositoryRoom);
+    CarRepository injectCarRepository(CarRepositoryRoom carRepositoryRoom);
 
     @Binds
-    public abstract MotorcycleRepository injectMotorcycleRepository(MotorcycleRepositoryRoom motorcycleRepositoryRoom);
+    MotorcycleRepository injectMotorcycleRepository(MotorcycleRepositoryRoom motorcycleRepositoryRoom);
 
 }
