@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.adn.adapter.VehicleAdapter;
 import com.example.adn.databinding.ActivityParkingServiceBinding;
 import com.example.adn.viewmodel.ParkingViewModel;
+import com.example.domain.parking.exception.GlobalException;
 import com.example.domain.vehicle.car.model.Car;
 import com.example.domain.vehicle.motorcycle.model.Motorcycle;
 import com.example.domain.vehicle.vehicle.model.Vehicle;
@@ -106,8 +107,8 @@ public class ParkingServiceActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Seleccione el tipo de vehiculo", Toast.LENGTH_SHORT).show();
             }
-        } catch (Exception e) {
-            Toast.makeText(this, "" +e.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (GlobalException e) {
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         vehicleAdapter.notifyDataSetChanged();
     }
