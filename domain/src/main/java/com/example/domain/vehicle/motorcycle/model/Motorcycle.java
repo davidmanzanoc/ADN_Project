@@ -21,7 +21,7 @@ public class Motorcycle extends Vehicle {
     }
 
     private void setCylinderCapacity(String cylinderCapacity) {
-        if (!cylinderCapacity.equals(""))
+        if (!"".equals(cylinderCapacity))
             this.cylinderCapacity = Integer.parseInt(cylinderCapacity);
         else
             throw new GlobalException("Ingrese el cilindraje del vehiculo", new Exception());

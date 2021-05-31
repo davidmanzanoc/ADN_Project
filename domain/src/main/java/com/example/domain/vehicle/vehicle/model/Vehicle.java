@@ -21,7 +21,7 @@ public class Vehicle {
     }
 
     private void setLicensePlate(String licensePlate) {
-        if (!licensePlate.equals(""))
+        if (!"".equals(licensePlate))
             this.licensePlate = licensePlate;
         else
             throw new GlobalException("Ingrese la placa del vehiculo", new Exception());
