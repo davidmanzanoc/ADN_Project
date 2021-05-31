@@ -33,7 +33,7 @@ public class ParkingServiceUnitTest {
     private static final String PARKING_LIMIT_EXCEPTION = "The parking lot has reached its capacity limit.";
 
     @Before
-    public void inicializarVariables() {
+    public void initElements() {
         carRepository = Mockito.mock(CarRepository.class);
         motorcycleRepository = Mockito.mock(MotorcycleRepository.class);
         parkingService = new ParkingService(carRepository, motorcycleRepository);
