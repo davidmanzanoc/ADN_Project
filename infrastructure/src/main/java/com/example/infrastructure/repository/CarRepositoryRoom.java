@@ -13,7 +13,6 @@ import com.example.infrastructure.translate.CarTranslate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -43,11 +42,11 @@ public class CarRepositoryRoom implements CarRepository {
 
     @Override
     public int getNumberOfCars() {
-        int numberOfCars = 0;
+        int numberOfCars;
         GetNumberOfCarsThread getNumberOfCarsThread = new GetNumberOfCarsThread(parkingDatabase);
         try {
             numberOfCars = getNumberOfCarsThread.execute().get();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (Exception e) {
             throw new GlobalException("Error al obtener el numero de carros", e);
         }
         return numberOfCars;
@@ -60,7 +59,7 @@ public class CarRepositoryRoom implements CarRepository {
         try {
             List<CarEntity> carEntityList = getCarsThread.execute().get();
             carList.addAll(CarTranslate.translateCarListFromDBToDomain(carEntityList));
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (Exception e) {
             throw new GlobalException("Error al obtener la lista de carros", e);
         }
         return carList;

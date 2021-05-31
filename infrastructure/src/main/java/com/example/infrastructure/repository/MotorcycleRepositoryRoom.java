@@ -13,7 +13,6 @@ import com.example.infrastructure.translate.MotorcycleTranslate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -48,7 +47,7 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
         GetNumberOfMotorcyclesThread getNumberOfMotorcyclesThread = new GetNumberOfMotorcyclesThread(parkingDatabase);
         try {
             numberOfMotorcycles = getNumberOfMotorcyclesThread.execute().get();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (Exception e) {
             throw new GlobalException("Error al obtener la cantidad de motos", e);
         }
         return numberOfMotorcycles;
@@ -61,7 +60,7 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
         List<MotorcycleEntity> motorcycleEntityList;
         try {
             motorcycleEntityList = getMotorcyclesThread.execute().get();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (Exception e) {
             throw new GlobalException("Error al obtener la lista de motos", e);
         }
         motorcycleList.addAll(MotorcycleTranslate.translateMotorcycleListFromDBToDomain(motorcycleEntityList));
