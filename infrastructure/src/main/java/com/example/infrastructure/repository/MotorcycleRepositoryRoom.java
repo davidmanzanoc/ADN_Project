@@ -49,7 +49,7 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
         try {
             numberOfMotorcycles = getNumberOfMotorcyclesThread.execute().get();
         } catch (ExecutionException | InterruptedException e) {
-            throw new GlobalException("Error al obtener la cantidad de motos", e.getCause());
+            throw new GlobalException("Error al obtener la cantidad de motos", e);
         }
         return numberOfMotorcycles;
     }
@@ -58,11 +58,11 @@ public class MotorcycleRepositoryRoom implements MotorcycleRepository {
     public List<Motorcycle> getMotorcycles() {
         List<Motorcycle> motorcycleList = new ArrayList<>();
         GetMotorcyclesThread getMotorcyclesThread = new GetMotorcyclesThread(parkingDatabase);
-        List<MotorcycleEntity> motorcycleEntityList = null;
+        List<MotorcycleEntity> motorcycleEntityList;
         try {
             motorcycleEntityList = getMotorcyclesThread.execute().get();
         } catch (ExecutionException | InterruptedException e) {
-            throw new GlobalException("Error al obtener la lista de motos", e.getCause());
+            throw new GlobalException("Error al obtener la lista de motos", e);
         }
         motorcycleList.addAll(MotorcycleTranslate.translateMotorcycleListFromDBToDomain(motorcycleEntityList));
         return motorcycleList;
