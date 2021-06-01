@@ -5,7 +5,7 @@ public class Parking {
     private final Rate carRate;
     private final Rate motorcycleRate;
     private final int hourLimit = 9;
-    private final int cylinderCapacity = 500;
+    private final int cylinderCapacityLimit = 500;
     private final String firstLetterLicensePlate = "A";
     private final int sunday = 7;
     private final int monday = 1;
@@ -29,8 +29,8 @@ public class Parking {
         return hourLimit;
     }
 
-    public int getCylinderCapacity() {
-        return cylinderCapacity;
+    public int getCylinderCapacityLimit() {
+        return cylinderCapacityLimit;
     }
 
     public String getFirstLetterLicensePlate() {
