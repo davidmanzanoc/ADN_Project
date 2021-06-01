@@ -4,13 +4,13 @@ public class Parking {
 
     private final Rate carRate;
     private final Rate motorcycleRate;
-    private final int hourLimit = 9;
-    private final int cylinderCapacityLimit = 500;
-    private final String firstLetterLicensePlate = "A";
-    private final int sunday = 7;
-    private final int monday = 1;
-    private final int maxNumberOfCars = 20;
-    private final int maxNumberOfMotorcycles = 10;
+    private static final int HOUR_LIMIT = 9;
+    private static final int CYLINDER_CAPACITY_LIMIT = 500;
+    private static final String FIRST_LETTER_LICENSE_PLATE = "A";
+    private static final int SUNDAY = 7;
+    private static final int MONDAY = 1;
+    private static final int MAX_NUMBER_OF_CARS = 20;
+    private static final int MAX_NUMBER_OF_MOTORCYCLES = 10;
 
     public Parking() {
         carRate = new Rate(1000, 8000, 0);
@@ -26,30 +26,30 @@ public class Parking {
     }
 
     public int getHourLimit() {
-        return hourLimit;
+        return HOUR_LIMIT;
     }
 
     public int getCylinderCapacityLimit() {
-        return cylinderCapacityLimit;
+        return CYLINDER_CAPACITY_LIMIT;
     }
 
     public String getFirstLetterLicensePlate() {
-        return firstLetterLicensePlate;
+        return FIRST_LETTER_LICENSE_PLATE;
     }
 
     public int getSunday() {
-        return sunday;
+        return SUNDAY;
     }
 
     public int getMonday() {
-        return monday;
+        return MONDAY;
     }
 
     public int getMaxNumberOfCars() {
-        return maxNumberOfCars;
+        return MAX_NUMBER_OF_CARS;
     }
 
     public int getMaxNumberOfMotorcycles() {
-        return maxNumberOfMotorcycles;
+        return MAX_NUMBER_OF_MOTORCYCLES;
     }
 }
