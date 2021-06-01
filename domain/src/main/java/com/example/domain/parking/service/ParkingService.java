@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.domain.parking.exception.ParkingLimitException;
 import com.example.domain.parking.exception.RestrictedAccessByDayException;
+import com.example.domain.parking.model.Parking;
 import com.example.domain.vehicle.car.model.Car;
 import com.example.domain.vehicle.motorcycle.model.Motorcycle;
 import com.example.domain.parking.model.Rate;
@@ -22,25 +23,20 @@ public class ParkingService {
 
     private final CarRepository carRepository;
     private final MotorcycleRepository motorcycleRepository;
-    private static final String FIRST_LETTER_LICENSE_PLATE = "A";
-    private static final int SUNDAY = 7;
-    private static final int MONDAY = 1;
-    public static final int MAX_NUMBER_OF_CARS = 20;
-    public static final int MAX_NUMBER_OF_MOTORCYCLES = 10;
     private static final float MILLISECONDS_IN_AN_HOUR = 3600000;
     private static final int HOURS_IN_A_DAY = 24;
-    private static final int HOUR_LIMIT = 9;
-    private static final int CYLINDER_CAPACITY_LIMIT = 500;
+    private final Parking parking;
 
     @Inject
     public ParkingService(CarRepository carRepository, MotorcycleRepository motorcycleRepository) {
         this.carRepository = carRepository;
         this.motorcycleRepository = motorcycleRepository;
+        this.parking = new Parking();
     }
 
     public void saveCar(Car car, int currentDay) {
         int numberOfCars = carRepository.getNumberOfCars();
-        if (numberOfCars == MAX_NUMBER_OF_CARS) {
+        if (numberOfCars == parking.getMaxNumberOfCars()) {
             throw new ParkingLimitException();
         } else if (validateLicensePlate(car.getLicensePlate(), currentDay)) {
             throw new RestrictedAccessByDayException();
@@ -51,7 +47,7 @@ public class ParkingService {
 
     public void saveMotorcycle(Motorcycle motorcycle, int currentDay) {
         int numberOfMotorcycles = motorcycleRepository.getNumberOfMotorcycles();
-        if (numberOfMotorcycles == MAX_NUMBER_OF_MOTORCYCLES) {
+        if (numberOfMotorcycles == parking.getMaxNumberOfMotorcycles()) {
             throw new ParkingLimitException();
         } else if (validateLicensePlate(motorcycle.getLicensePlate(), currentDay)) {
             throw new RestrictedAccessByDayException();
@@ -61,7 +57,8 @@ public class ParkingService {
     }
 
     public boolean validateLicensePlate(String licensePlate, int currentDay) {
-        return (licensePlate.startsWith(FIRST_LETTER_LICENSE_PLATE) && (currentDay == SUNDAY || currentDay == MONDAY));
+        return (licensePlate.startsWith(parking.getFirstLetterLicensePlate())
+                && (currentDay == parking.getSunday() || currentDay == parking.getMonday()));
     }
 
     public void deleteCar(Car car) {
@@ -82,29 +79,31 @@ public class ParkingService {
     }
 
     public int carParkingCost(Car car, LocalDateTime exitDate) {
-        return calculateParkingCost(car, exitDate);
+        Rate carRate = parking.getCarRate();
+        return calculateParkingCost(car, exitDate, carRate);
     }
 
     public int motorcycleParkingCost(Motorcycle motorcycle, LocalDateTime exitDate) {
-        int parkingCost = calculateParkingCost(motorcycle, exitDate);
-        if (motorcycle.getCylinderCapacity() > CYLINDER_CAPACITY_LIMIT) {
-            parkingCost += motorcycle.getRATE().getSurplus();
+        Rate motorcycleRate = parking.getMotorcycleRate();
+        int parkingCost = calculateParkingCost(motorcycle, exitDate, motorcycleRate);
+        if (motorcycle.getCylinderCapacity() > parking.getCylinderCapacityLimit()) {
+            parkingCost += motorcycleRate.getSurplus();
         }
         return parkingCost;
     }
 
-    public int calculateParkingCost(Vehicle vehicle, LocalDateTime exitDate) {
-        Rate vehicleRate = vehicle.getRATE();
+    public int calculateParkingCost(Vehicle vehicle, LocalDateTime exitDate, Rate vehicleRate) {
+        int hourLimit = parking.getHourLimit();
         int priceHour = vehicleRate.getPriceHour();
         int priceDay = vehicleRate.getPriceDay();
         int parkingCost;
         int parkingTime = getParkingTime(vehicle.getEntryDate(), exitDate);
-        if (parkingTime < HOUR_LIMIT) {
+        if (parkingTime < hourLimit) {
             parkingCost = parkingTime * priceHour;
         } else {
             int days = parkingTime / HOURS_IN_A_DAY;
             int hours = parkingTime % HOURS_IN_A_DAY;
-            if (hours >= HOUR_LIMIT) {
+            if (hours >= hourLimit) {
                 days += 1;
                 parkingCost = days * priceDay;
             } else {

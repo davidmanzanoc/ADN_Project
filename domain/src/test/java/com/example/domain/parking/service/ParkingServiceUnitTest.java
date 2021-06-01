@@ -2,6 +2,7 @@ package com.example.domain.parking.service;
 
 import com.example.domain.parking.exception.ParkingLimitException;
 import com.example.domain.parking.exception.RestrictedAccessByDayException;
+import com.example.domain.parking.model.Parking;
 import com.example.domain.vehicle.car.model.Car;
 import com.example.domain.vehicle.motorcycle.model.Motorcycle;
 import com.example.domain.vehicle.vehicle.model.Vehicle;
@@ -28,6 +29,8 @@ public class ParkingServiceUnitTest {
     @Mock
     private MotorcycleRepository motorcycleRepository;
 
+    private Parking parking;
+    int sunday = 7;
     private ParkingService parkingService;
     private static final String RESTRICTED_ACCESS_BY_DAY = "The vehicle's license plate is restricted for today's entry.";
     private static final String PARKING_LIMIT_EXCEPTION = "The parking lot has reached its capacity limit.";
@@ -37,6 +40,7 @@ public class ParkingServiceUnitTest {
         carRepository = Mockito.mock(CarRepository.class);
         motorcycleRepository = Mockito.mock(MotorcycleRepository.class);
         parkingService = new ParkingService(carRepository, motorcycleRepository);
+        parking = new Parking();
     }
 
     @Test
@@ -151,7 +155,6 @@ public class ParkingServiceUnitTest {
     @Test
     public void validateLicensePlate_startsWithAOnASunday_isCorrect() {
         //Arrange
-        int sunday = 7;
         String licensePlate = "AMU-95C";
         //Act
         boolean accessDenied = parkingService.validateLicensePlate(licensePlate, sunday);
@@ -164,9 +167,8 @@ public class ParkingServiceUnitTest {
         //Arrange
         LocalDateTime entryDate = LocalDateTime
                 .of(2021, 5, 23, 13, 57, 0);
-        int sunday = 7;
         Car car = new Car("YMU-95C", entryDate);
-        when(carRepository.getNumberOfCars()).thenReturn(parkingService.MAX_NUMBER_OF_CARS);
+        when(carRepository.getNumberOfCars()).thenReturn(parking.getMaxNumberOfCars());
         //Act
         try {
             parkingService.saveCar(car, sunday);
@@ -181,7 +183,6 @@ public class ParkingServiceUnitTest {
         //Arrange
         LocalDateTime entryDate = LocalDateTime
                 .of(2021, 5, 23, 13, 57, 0);
-        int sunday = 7;
         Car car = new Car("AMU-95C", entryDate);
         when(carRepository.getNumberOfCars()).thenReturn(7);
         //Act
@@ -198,9 +199,8 @@ public class ParkingServiceUnitTest {
         //Arrange
         LocalDateTime entryDate = LocalDateTime
                 .of(2021, 5, 23, 13, 57, 0);
-        int sunday = 7;
         Motorcycle motorcycle = new Motorcycle("YMU-95C", entryDate, "500");
-        when(motorcycleRepository.getNumberOfMotorcycles()).thenReturn(parkingService.MAX_NUMBER_OF_MOTORCYCLES);
+        when(motorcycleRepository.getNumberOfMotorcycles()).thenReturn(parking.getMaxNumberOfMotorcycles());
         //Act
         try {
             parkingService.saveMotorcycle(motorcycle, sunday);
@@ -215,7 +215,6 @@ public class ParkingServiceUnitTest {
         //Arrange
         LocalDateTime entryDate = LocalDateTime
                 .of(2021, 5, 23, 13, 57, 0);
-        int sunday = 7;
         Motorcycle motorcycle = new Motorcycle("AMU-95C", entryDate, "500");
         when(motorcycleRepository.getNumberOfMotorcycles()).thenReturn(7);
         //Act
