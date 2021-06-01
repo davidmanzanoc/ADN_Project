@@ -2,12 +2,20 @@ package com.example.domain.parking.model;
 
 public class Parking {
 
+    private final Rate carRate;
+    private final Rate motorcycleRate;
+    private final int hourLimit = 9;
+    private final int cylinderCapacity = 500;
+    private final String firstLetterLicensePlate = "A";
+    private final int sunday = 7;
+    private final int monday = 1;
+    private final int maxNumberOfCars = 20;
+    private final int maxNumberOfMotorcycles = 10;
+
     public Parking() {
+        carRate = new Rate(1000, 8000, 0);
+        motorcycleRate = new Rate(500, 4000, 2000);
     }
-
-    private final Rate carRate = new Rate(1000, 8000, 0);
-
-    private final Rate motorcycleRate = new Rate(500, 4000, 2000);
 
     public Rate getCarRate() {
         return carRate;
@@ -18,30 +26,30 @@ public class Parking {
     }
 
     public int getHourLimit() {
-        return 9;
+        return hourLimit;
     }
 
-    public int getCylinderCapacityLimit() {
-        return 500;
+    public int getCylinderCapacity() {
+        return cylinderCapacity;
     }
 
     public String getFirstLetterLicensePlate() {
-        return "A";
+        return firstLetterLicensePlate;
     }
 
     public int getSunday() {
-        return 7;
+        return sunday;
     }
 
     public int getMonday() {
-        return 1;
+        return monday;
     }
 
     public int getMaxNumberOfCars() {
-        return 20;
+        return maxNumberOfCars;
     }
 
     public int getMaxNumberOfMotorcycles() {
-        return 10;
+        return maxNumberOfMotorcycles;
     }
 }
