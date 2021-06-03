@@ -1,15 +1,14 @@
 package com.example.domain.vehicle.vehicle.model;
 
 import com.example.domain.parking.exception.GlobalException;
-import com.example.domain.parking.model.Rate;
+import com.example.domain.parking.service.ParkingService;
 
 import java.time.LocalDateTime;
 
-public class Vehicle {
+public abstract class Vehicle {
 
     protected String licensePlate;
     protected LocalDateTime entryDate;
-    private static final Rate RATE = new Rate(0, 0, 0);
 
     public Vehicle(String licensePlate, LocalDateTime entryDate) {
         setLicensePlate(licensePlate);
@@ -35,7 +34,7 @@ public class Vehicle {
         this.entryDate = entryDate;
     }
 
-    public Rate getRATE() {
-        return RATE;
-    }
+    public abstract void saveVehicle(ParkingService parkingService);
+
+    public abstract int parkingCost(ParkingService parkingService);
 }

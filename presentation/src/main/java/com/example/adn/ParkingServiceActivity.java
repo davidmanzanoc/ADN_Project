@@ -120,7 +120,7 @@ public class ParkingServiceActivity extends AppCompatActivity {
 
     public void collectParkingService(Vehicle vehicle) {
         parkingViewModel.collectParkingService(vehicle).observe(this, billParkingService -> {
-            Toast.makeText(this, "Total a pagar: " + billParkingService, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Total a pagar: " + billParkingService, Toast.LENGTH_SHORT).show();
             vehicleAdapter.notifyDataSetChanged();
         });
     }
