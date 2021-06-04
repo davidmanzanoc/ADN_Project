@@ -22,7 +22,6 @@ public abstract class ParkingDatabase extends RoomDatabase {
     public abstract MotorcycleDao motorcycleDao();
 
     private static ParkingDatabase databaseInstance = null;
-    public static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(4);
 
     public static ParkingDatabase getInstance(Context context) {
         if (databaseInstance == null) {
