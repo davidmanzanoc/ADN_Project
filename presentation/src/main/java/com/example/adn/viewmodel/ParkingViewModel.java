@@ -32,7 +32,7 @@ public class ParkingViewModel extends ViewModel {
         this.vehicleSaved = new MutableLiveData<>();
         this.parkingBill = new MutableLiveData<>();
         this.context = context;
-        vehicleList = parkingService.getVehicles();
+        getVehicleMutableList();
     }
 
     public LiveData<String> saveVehicle(Vehicle vehicle) {
@@ -47,6 +47,7 @@ public class ParkingViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<Vehicle>> getVehicleMutableList() {
+        vehicleList.setValue(parkingService.getVehicles());
         return vehicleList;
     }
 
