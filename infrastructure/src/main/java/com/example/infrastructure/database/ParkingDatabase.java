@@ -11,9 +11,6 @@ import com.example.infrastructure.motorcycle.database.dao.MotorcycleDao;
 import com.example.infrastructure.car.database.entity.CarEntity;
 import com.example.infrastructure.motorcycle.database.entity.MotorcycleEntity;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 @Database(entities = {CarEntity.class, MotorcycleEntity.class}, version = 1, exportSchema = false)
 public abstract class ParkingDatabase extends RoomDatabase {
 
