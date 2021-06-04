@@ -14,12 +14,15 @@ import com.example.domain.parking.service.ParkingService;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
 public class ParkingViewModel extends ViewModel {
 
     private final ParkingService parkingService;
+    private final ExecutorService executorService;
     private MutableLiveData<List<Vehicle>> vehicleList;
     private MutableLiveData<String> vehicleSaved;
     private MutableLiveData<Integer> parkingBill;
@@ -32,13 +35,14 @@ public class ParkingViewModel extends ViewModel {
         this.vehicleSaved = new MutableLiveData<>();
         this.parkingBill = new MutableLiveData<>();
         this.context = context;
+        executorService = Executors.newFixedThreadPool(4);
         getVehicleMutableList();
     }
 
     public LiveData<String> saveVehicle(Vehicle vehicle) {
         try {
-            vehicle.saveVehicle(parkingService);
-            vehicleList.getValue().add(vehicle);
+            executorService.execute(() -> vehicle.saveVehicle(parkingService));
+            Objects.requireNonNull(vehicleList.getValue()).add(vehicle);
             vehicleSaved.setValue(context.getString(R.string.vehicleSaved));
         } catch (Exception exception) {
             throw new GlobalException(context.getString(R.string.vehicleNotSavedException), exception);
@@ -47,12 +51,12 @@ public class ParkingViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<Vehicle>> getVehicleMutableList() {
-        vehicleList.setValue(parkingService.getVehicles());
+        executorService.execute(() -> vehicleList.postValue(parkingService.getVehicles()));
         return vehicleList;
     }
 
     public LiveData<Integer> collectParkingService(Vehicle vehicle) {
-        parkingBill.setValue(vehicle.parkingCost(parkingService));
+        executorService.execute(() -> parkingBill.postValue(vehicle.parkingCost(parkingService)));
         Objects.requireNonNull(vehicleList.getValue()).remove(vehicle);
         return parkingBill;
     }

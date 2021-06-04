@@ -7,8 +7,6 @@ import com.example.domain.vehicle.car.model.Car;
 import com.example.domain.vehicle.car.repository.CarRepository;
 import com.example.infrastructure.database.ParkingDatabase;
 import com.example.infrastructure.car.database.entity.CarEntity;
-import com.example.infrastructure.car.threads.GetCarsThread;
-import com.example.infrastructure.car.threads.GetNumberOfCarsThread;
 import com.example.infrastructure.car.translate.CarTranslate;
 
 import java.util.ArrayList;
@@ -30,22 +28,20 @@ public class CarRepositoryRoom implements CarRepository {
     @Override
     public void saveCar(Car car) {
         CarEntity carEntity = CarTranslate.translateCarFromDomainToDB(car);
-        ParkingDatabase.EXECUTOR_SERVICE.execute(() -> parkingDatabase.carDao().saveCar(carEntity));
+        parkingDatabase.carDao().saveCar(carEntity);
     }
 
     @Override
     public void deleteCar(Car car) {
         CarEntity carEntity = CarTranslate.translateCarFromDomainToDB(car);
-        ParkingDatabase.EXECUTOR_SERVICE.execute(() ->
-                parkingDatabase.carDao().deleteCar(carEntity.getLicensePlate()));
+        parkingDatabase.carDao().deleteCar(carEntity.getLicensePlate());
     }
 
     @Override
     public int getNumberOfCars() {
         int numberOfCars;
-        GetNumberOfCarsThread getNumberOfCarsThread = new GetNumberOfCarsThread(parkingDatabase);
         try {
-            numberOfCars = getNumberOfCarsThread.execute().get();
+            numberOfCars = parkingDatabase.carDao().getNumberOfCars();
         } catch (Exception e) {
             throw new GlobalException("Error al obtener el numero de carros", e);
         }
@@ -55,9 +51,8 @@ public class CarRepositoryRoom implements CarRepository {
     @Override
     public List<Car> getCars() {
         List<Car> carList = new ArrayList<>();
-        GetCarsThread getCarsThread = new GetCarsThread(parkingDatabase);
         try {
-            List<CarEntity> carEntityList = getCarsThread.execute().get();
+            List<CarEntity> carEntityList = parkingDatabase.carDao().getCars();
             carList.addAll(CarTranslate.translateCarListFromDBToDomain(carEntityList));
         } catch (Exception e) {
             throw new GlobalException("Error al obtener la lista de carros", e);
